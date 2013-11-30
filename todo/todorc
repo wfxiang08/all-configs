@@ -1,0 +1,21 @@
+filter +children
+filter -done
+colour comment=+black
+force-colour
+timeout 10
+paranoid
+global-database $HOME/.todo_global
+backup 2
+comment
+sort priority,-created,-text
+format date=%d/%m/%y, %H:%M
+on create {
+      exec chmod 600 $TODODB
+}
+on add verbose
+on edit verbose
+on title verbose
+on done verbose
+on link verbose
+on remove verbose
+

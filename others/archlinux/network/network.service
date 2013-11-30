@@ -1,0 +1,14 @@
+[Unit]
+Description=Network Connectivity
+Wants=network.target
+Before=network.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/local/sbin/network.br0 start
+ExecRestart=/usr/local/sbin/network.br0 restart
+ExecStop=/usr/local/sbin/network.br0 stop
+
+[Install]
+WantedBy=multi-user.target

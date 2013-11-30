@@ -1,0 +1,9 @@
+https://wiki.archlinux.org/index.php/Network_Configuration
+https://wiki.archlinux.org/index.php/Wpa_supplicant
+
+# iw wlan0 scan
+# wpa_passphrase "mywireless_ssid" "secretpassphrase"
+# wpa_passphrase mywireless_ssid "secretpassphrase" >> /etc/wpa_supplicant.conf
+# ip link set wlan0 up
+# wpa_supplicant -B -Dwext -i wlan0 -c /etc/wpa_supplicant.conf 
+# dhcpcd wlan0

@@ -1,0 +1,11 @@
+;; -*- emacs-lisp -*-
+
+;; set default directory
+(setq default-directory "~/")
+
+;; load default emacs configuration
+(setq load-path
+      (append (list (expand-file-name "~/.emacs.d")) load-path))
+
+(require 'emacs-config)
+(put 'upcase-region 'disabled nil)

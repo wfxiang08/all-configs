@@ -1,0 +1,15 @@
+### install new submudole
+    $ git submodule add $git_remote_url modules/$module_name
+    $ ln -s ../modules/$module_name enabled/
+    $ git add enabled/$module_name
+    $ git commit
+
+### References
+    * [VIM Casts](http://vimcasts.org/episodes)
+    * [Create git mirror for hg repo](http://stackoverflow.com/questions/1072602/git-submodule-from-hg-repo)
+
+### Powerline Fontconfig
+See docs [here](http://powerline.readthedocs.org/en/latest/installation/linux.html#installation-linux)
+    $ ln -s $HOME/.vim/tools/PowerlineSymbols.otf ~/.fonts/
+    $ ln -s $HOME/.vim/tools/10-powerline-symbols.conf ~/.config/fontconfig/conf.d/
+    $ fc-cache -vf

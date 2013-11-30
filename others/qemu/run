@@ -1,0 +1,62 @@
+#!/bin/bash
+
+# sudo modprobe kvm
+# sudo modprobe kvm-intel
+
+if [ -f .pid ]; then
+    ps -uf --ppid `cat .pid`
+    exit 0
+fi
+
+user=$(whoami)
+
+vnc=1
+brx=br0
+img=lucid64.img
+iso=ubuntu-10.04.4-desktop-amd64.iso
+
+tap=$(sudo tunctl -b -u $user)
+#snapshot=-snapshot
+
+if [ $? -ne 0 ]; then
+    echo "Error: cannot get tapx."
+    exit 1
+fi
+
+sudo tunctl -t $tap -u $user
+sudo brctl addif $brx $tap
+sudo ifconfig $tap up
+
+if [ ! -f $img ]; then
+    qemu-img create -f qcow2 $img 100G
+    qemuopts="-cdrom $iso -boot d"
+else
+    qemuopts=
+fi
+
+MACADDR=
+if [ -f macaddr ]; then
+    MACADDR=`cat macaddr`
+fi
+
+if [ -z "$MACADDR" ]; then
+    MACADDR="52:54:00:$(dd if=/dev/urandom bs=512 count=1 2>/dev/null | md5sum | \
+        sed 's/^\(..\)\(..\)\(..\).*$/\1:\2:\3/')";
+    echo $MACADDR | tee macaddr
+fi
+
+forkmain() {
+    nice -n 10 qemu-system-x86_64 $qemuopts $snapshot -drive file=$img,media=disk,cache=writeback \
+        -net nic,vlan=0,macaddr=$MACADDR -net tap,vlan=0,ifname=$tap,script=no,downscript=no \
+        -m 2048 -smp 4 -localtime -enable-kvm -vnc :$vnc
+    (sudo tunctl -d $tap) 2>&1 > /dev/null
+    rm -f .pid .vnc
+}
+
+forkmain &
+
+pid=$!
+
+echo $vnc > .vnc
+echo $pid > .pid
+

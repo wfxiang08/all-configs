@@ -1,0 +1,30 @@
+[submodule "vim/vim/modules/tlib"]
+	path = vim/vim/modules/tlib
+	url = git://github.com/vim-scripts/tlib.git
+[submodule "vim/vim/modules/tagbar"]
+	path = vim/vim/modules/tagbar
+	url = git://github.com/majutsushi/tagbar.git
+[submodule "vim/vim/modules/nerdtree"]
+	path = vim/vim/modules/nerdtree
+	url = git://github.com/scrooloose/nerdtree.git
+[submodule "vim/vim/modules/gundo"]
+	path = vim/vim/modules/gundo
+	url = https://github.com/sjl/gundo.vim.git
+[submodule "vim/vim/modules/tabular"]
+	path = vim/vim/modules/tabular
+	url = git://github.com/godlygeek/tabular.git
+[submodule "vim/vim/modules/pathogen"]
+	path = vim/vim/modules/pathogen
+	url = git://github.com/tpope/vim-pathogen.git
+[submodule "vim/vim/modules/vim-latex"]
+	path = vim/vim/modules/vim-latex
+	url = git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex
+[submodule "vim/vim/modules/vimwiki"]
+	path = vim/vim/modules/vimwiki
+	url = git://github.com/vimwiki/vimwiki.git
+[submodule "vim/vim/modules/bufexplorer"]
+	path = vim/vim/modules/bufexplorer
+	url = https://github.com/corntrace/bufexplorer
+[submodule "vim/vim/modules/unimpaired"]
+	path = vim/vim/modules/unimpaired
+	url = git://github.com/tpope/vim-unimpaired.git

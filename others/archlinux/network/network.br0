@@ -1,0 +1,65 @@
+#!/bin/bash
+
+# set -x
+
+cmd=
+while [ $# -ne 0 ]; do
+    case $1 in
+        "start"|"stop"|"restart")
+            cmd=$1
+            ;;
+    esac
+    shift
+done
+
+if [ -z $cmd ]; then
+    echo please specify cmd, only accept start, stop and restart.
+    exit 1
+fi
+
+run_command() {
+    local force=$1; shift
+    local run=$@
+    $run
+    local ret=$?
+    if [ $ret -eq 0 ]; then
+        return
+    fi
+    echo "run command failed: $run, exit=$ret"
+    if [ $force -ne 0 ]; then
+        exit $ret
+    else
+        echo pass
+    fi
+}
+
+start_br0() {
+    run_command 1 /sbin/ip link set dev eth0 up
+    run_command 1 /usr/sbin/brctl addbr br0
+    run_command 1 /usr/sbin/brctl stp br0 off
+    run_command 1 /usr/sbin/brctl setfd br0 0
+    run_command 1 /usr/sbin/brctl setmaxage br0 10
+    run_command 1 /usr/sbin/brctl addif br0 eth0
+    run_command 1 /sbin/ip link set dev br0 up
+    (/sbin/dhcpcd -qL -t 10 br0) &
+}
+
+stop_br0() {
+    run_command 0 /sbin/ip link set dev br0 down
+    run_command 0 /sbin/ip link set dev eth0 down
+    run_command 0 /usr/sbin/brctl delbr br0
+}
+
+case $cmd in
+    "start")
+        start_br0
+        ;;
+    "stop")
+        stop_br0
+        ;;
+    "restart")
+        stop_br0
+        start_br0
+        ;;
+esac
+

@@ -1,0 +1,4 @@
+mkfontscale
+mkfontdir
+
+fc-cache

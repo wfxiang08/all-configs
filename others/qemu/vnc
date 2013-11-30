@@ -1,0 +1,4 @@
+#!/bin/bash
+
+vnc=$(cat .vnc)
+(vncviewer 127.0.0.1:$vnc 2>&1) >/dev/null &

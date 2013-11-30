@@ -1,0 +1,285 @@
+#set title and taskbar {{{
+color_prompt=no
+case "$TERM" in
+    xterm*)
+        color_prompt=yes
+        ;;
+esac
+
+if [ "$color_prompt" = yes ]; then
+    autoload colors zsh/terminfo
+    if [[ "$terminfo[colors]" -ge 8 ]]; then
+        colors
+    fi
+    for color in RED GREEN YELLOW BLUE MAGENTA CYAN WHITE GREY; do
+        eval C_$color='%{$terminfo[bold]$fg[${(L)color}]%}'
+        eval C_L_$color='%{$fg[${(L)color}]%}'
+    done
+    C_OFF="%{$terminfo[sgr0]%}"
+
+    PS1=$(echo '$C_L_RED%n$C_OFF:%~$C_L_YELLOW$ $C_OFF')
+    RPS1=$(echo '$C_OFF$C_L_GREEN%(1j.[$MYJOBS]. )$C_L_YELLOW%(?.. (%?%))$C_OFF')
+
+    # load prompt functions
+    setopt promptsubst
+
+    precmd()  {
+        MYJOBS=()
+        for a (${(k)jobstates}) {
+            j=$jobstates[$a];i="${${(@s,:,)j}[2]}"
+            MYJOBS+=($a${i//[^+-]/})
+        }
+        MYJOBS=${(j:,:)MYJOBS}
+    }
+else
+    PROMPT=$(echo '%{\033[04;31m%}%n%{\033[0m%}:%~%(?..%{\033[35m%} [%?] )%{\033[33m%}$%{\033[0m%} ')
+fi
+
+#}}}
+
+#history configuration {{{
+#number of saved records
+export HISTSIZE=65536
+export HISTFILE="$HOME/.zsh_history"
+#number of saved records (after logout)
+export SAVEHIST=$HISTSIZE
+#append history
+setopt INC_APPEND_HISTORY
+#ignore consecutive input
+setopt HIST_IGNORE_DUPS
+#add timestamp for records
+setopt EXTENDED_HISTORY
+
+function history {
+    builtin history -t "%s" 0 |
+        awk -F" " '{$1="";$2=strftime("%Y-%m-%d %T",$2) "|"; print $0}'
+}
+
+# cd for devtodo
+cd() {
+    if builtin cd "$@"; then
+        if [ -f .todo ]; then
+            devtodo --summary --timeout;
+        fi
+    fi
+}
+
+#enable 'cd -'
+setopt AUTO_PUSHD
+#only record once for the same path
+setopt PUSHD_IGNORE_DUPS
+
+#don't record history if there's a space before command
+setopt HIST_IGNORE_SPACE
+
+#set default editor
+#export EDITOR=vim
+#}}}
+
+#others {{{
+#enable comment '#'
+setopt INTERACTIVE_COMMENTS
+
+setopt nonomatch
+
+#expand path
+#/v/c/p/p => /var/cache/pacman/pkg
+setopt complete_in_word
+
+#disable core dumps
+limit coredumpsize 0
+
+#emacs keybind
+#bindkey -e
+
+#cp ^*.(tar|bz2|gz)
+setopt extendedglob
+
+#treat these characters as part of word
+WORDCHARS='*?_-[]~=&;!#$%^(){}<>'
+#}}}
+
+#auto-complete {{{
+#setopt AUTO_LIST
+setopt BASH_AUTO_LIST
+setopt AUTO_MENU
+#select(highlight) the first one in the list directly, once auto-complete was triggered
+#setopt MENU_COMPLETE
+
+autoload -U compinit
+compinit
+
+#cache for auto-complete
+#zstyle ':completion::complete:*' use-cache on
+#zstyle ':completion::complete:*' cache-path .zcache
+#zstyle ':completion:*:cd:*' ignore-parents parent pwd
+
+#completion
+zstyle ':completion:*:match:*' original only
+zstyle ':completion::prefix-1:*' completer _complete
+zstyle ':completion:predict:*' completer _complete
+zstyle ':completion:incremental:*' completer _complete _correct
+zstyle ':completion:*' completer _complete _prefix _correct _prefix _match _approximate
+
+#expand path
+zstyle ':completion:*' expand 'yes'
+zstyle ':completion:*' squeeze-shlashes 'yes'
+zstyle ':completion::complete:*' '\\'
+
+zstyle ':completion:*' menu select
+zstyle ':completion:*:*:default' force-list always
+
+#colorful
+if [ -x /usr/bin/dircolors ]; then
+    eval $(dircolors -b)
+else
+    export LS_COLORS='rs=0:di=01;34:ln=01;36:mh=44;37:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.lzma=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.rar=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.axv=01;35:*.anx=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.axa=00;36:*.oga=00;36:*.spx=00;36:*.xspf=00;36:'
+fi
+export ZLSCOLORS="${LS_COLORS}"
+
+zmodload zsh/complist
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+
+#correct case
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
+#correct errors
+zstyle ':completion:*' completer _complete _match _approximate
+zstyle ':completion:*:match:*' original only
+zstyle ':completion:*:approximate:*' max-errors 1 numeric
+
+#complete for kill or killall?
+zstyle ':completion:*:*:kill:*' menu yes select
+zstyle ':completion:*:*:*:*:processes' force-list always
+zstyle ':completion:*:processes' command 'ps -au$USER'
+
+zstyle ':completion:*:matches' group 'yes'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:options' description 'yes'
+zstyle ':completion:*:options' auto-description '%d'
+#zstyle ':completion:*:descriptions' format $'\e[01;33m -- %d --\e[0m'
+zstyle ':completion:*:descriptions' format $'\e[01;33m -- %U%B%d%b%u --\e[0m'
+zstyle ':completion:*:messages' format $'\e[01;35m -- %d --\e[0m'
+zstyle ':completion:*:warnings' format $'\e[01;31m -- No Matches Found --\e[0m'
+#}}}
+
+#bind key {{{
+autoload zkbd
+[[ ! -f ${ZDOTDIR:-$HOME}/.zkbd/$TERM-$VENDOR-$OSTYPE ]] && zkbd
+source ${ZDOTDIR:-$HOME}/.zkbd/$TERM-$VENDOR-$OSTYPE
+
+[[ -n ${key[Backspace]} ]] && bindkey "${key[Backspace]}" backward-delete-char
+[[ -n ${key[Insert]} ]] && bindkey "${key[Insert]}" overwrite-mode
+[[ -n ${key[Home]} ]] && bindkey "${key[Home]}" beginning-of-line
+[[ -n ${key[PageUp]} ]] && bindkey "${key[PageUp]}" up-line-or-history
+[[ -n ${key[Delete]} ]] && bindkey "${key[Delete]}" delete-char
+[[ -n ${key[End]} ]] && bindkey "${key[End]}" end-of-line
+[[ -n ${key[PageDown]} ]] && bindkey "${key[PageDown]}" down-line-or-history
+[[ -n ${key[Up]} ]] && bindkey "${key[Up]}" up-line-or-search
+[[ -n ${key[Left]} ]] && bindkey "${key[Left]}" backward-char
+[[ -n ${key[Down]} ]] && bindkey "${key[Down]}" down-line-or-search
+[[ -n ${key[Right]} ]] && bindkey "${key[Right]}" forward-char
+#}}}
+
+#sudo {{{
+sudo-command-line() {
+    [[ -z $BUFFER ]] && zle up-history
+    [[ $BUFFER != sudo\ * ]] && BUFFER="sudo $BUFFER"
+    # move the cursor to the end of current line
+    zle end-of-line
+}
+zle -N sudo-command-line
+#bind to [Esc] [Esc]
+bindkey "\e\e" sudo-command-line
+#}}}
+
+HOST_OS=`uname`
+
+#alias {{{
+# if [ "x$HOST_OS" = "xDarwin" ]; then
+#     alias __emacs_bin='/Applications/Emacs.app/Contents/MacOS/Emacs'
+#     alias __emacsclient_bin='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient'
+# else
+#     alias __emacs_bin='emacs'
+#     alias __emacsclient_bin='emacsclient'
+# fi
+# 
+# ____emacs() {
+#     __emacs_bin -nw "$@";
+# }
+# 
+# ____xemacs() {
+#     (__emacs_bin "$@" &);
+# }
+
+alias ls='ls --color=auto --group-directories-first'
+alias lsnc='ls --color=never'
+#alias ls='ls -G'
+alias ll='ls -l'
+alias la='ls -a'
+alias lh='ls -lh'
+alias l='ls -CF'
+alias vi='vim'
+alias dir='ls'
+alias quit='exit'
+alias mv='mv -i'
+alias cp='cp -i'
+alias rm='rm -i'
+alias trash='mv -f --backup=numbered --target-directory ~/.Trash/'
+alias tree='tree -N'
+alias free="free -m"
+alias grep='grep --color=auto'
+alias grepnc='grep --color=never'
+alias ctags='ctags -R --c-kinds=+px --c++-kinds=+px --fields=+ialS --extra=+q'
+# alias edit='__emacsclient_bin -t -a ""'
+# alias kill-emacs='__emacsclient_bin -e "(kill-emacs)"'
+# alias emacs='____emacs'
+# alias xemacs='____xemacs'
+alias dstat='dstat -cmdnlpsy'
+alias byobu='byobu-tmux'
+
+case $HOST_OS in
+    Darwin)
+        __open() {
+            if [ $# -eq 0 ]; then
+                /usr/bin/open .
+            else
+                /usr/bin/open $@
+            fi
+        }
+        alias mvim='/Applications/MacVim.app/Contents/MacOS/Vim -g'
+        alias open='__open'
+    ;;
+    Linux)
+        # alias open='dolphin'
+        # alias open='gnome-open'
+    ;;
+esac
+
+# time for /usr/bin/time
+[[ -x =time ]] && alias time='command time -p'
+
+case $HOST_OS in
+    Darwin)
+        export PATH=/usr/texbin:$PATH
+        export PATH=/opt/local/libexec/gnubin:$PATH
+        export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+        export PATH=/usr/local/bin:$PATH
+        export MANPATH=/opt/local/libexec/gnubin/man:$MANPATH
+        export MANPATH=/opt/local/share/man:$MANPATH
+        export LD_LIBRARY_PATH=".:${LD_LIBRARY_PATH}"
+        ;;
+    Linux)
+        export GOPATH=~/.gopath
+        export PATH=${PATH}:${GOPATH}/bin
+        # export PATH=/usr/local/sbin:/usr/local/bin:/usr/local/texlive/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+        ;;
+esac
+
+export LANG='en_US.UTF-8'
+export LC_ALL='en_US.UTF-8'
+
+function vman {
+    man $* | col -b | vim -c 'set ft=man nomod nolist' -;
+}
+#}}}

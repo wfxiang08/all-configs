@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# run the following command to connect wifi to get the wpa.conf
+#     $ sudo NETCFG_DEBUG="yes" wifi-menu
+
+ps aux | grep dhcpcd | grep -v grep | grep wlan0 2>&1 > /dev/null
+
+if [ $? -eq 0 ]; then
+    echo "[Error] please kill dhcpcd for wlan0 first"
+    exit 1
+fi
+
+# rm -f /run/wpa_supplicant/wlan0
+
+/sbin/ip link set dev wlan0 up
+/usr/sbin/wpa_supplicant -B -i wlan0 -c wpa.conf
+/sbin/dhcpcd -L -t 10 wlan0
+

@@ -1,0 +1,25 @@
+[user]
+    name = spinlock
+    email = wnzheng@gmail.com
+
+[color]
+    ui = auto
+
+[alias]
+    sb = show-branch
+    st = status .
+    co = checkout
+    cm = commit -m
+    br = branch -a
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+
+[core]
+    editor = vim
+[merge]
+    tool = vimdiff
+[format]
+    pretty = format:"%Cgreen%h %Creset%s"
+[branch]
+    autosetupmerge = true
+[push]
+	default = simple

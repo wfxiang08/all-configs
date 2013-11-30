@@ -1,0 +1,22 @@
+--- ctex-xecjk-winfonts.def	2013-11-16 16:58:01.471018323 +0800
++++ /usr/share/texmf-dist/tex/latex/ctex/fontset/ctex-xecjk-winfonts.def	2013-11-16 17:01:10.207010229 +0800
+@@ -1,15 +1,15 @@
+ % ctex-xecjk-winfonts.def: Windows 的 xeCJK 字体设置，默认为六种中易字体
+ % vim:ft=tex
+ 
+-\setCJKmainfont[BoldFont={SimHei},ItalicFont={[SIMKAI.TTF]}]
++\setCJKmainfont[BoldFont={SimHei},ItalicFont={KaiTi}]
+   {SimSun}
+ \setCJKsansfont{SimHei}
+-\setCJKmonofont{[SIMFANG.TTF]}
++\setCJKmonofont{FangSong}
+ 
+ \setCJKfamilyfont{zhsong}{SimSun}
+ \setCJKfamilyfont{zhhei}{SimHei}
+-\setCJKfamilyfont{zhkai}{[SIMKAI.TTF]}
+-\setCJKfamilyfont{zhfs}{[SIMFANG.TTF]}
++\setCJKfamilyfont{zhkai}{KaiTi}
++\setCJKfamilyfont{zhfs}{FangSong}
+ % \setCJKfamilyfont{zhli}{LiSu}
+ % \setCJKfamilyfont{zhyou}{YouYuan}
+ 

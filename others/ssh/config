@@ -1,0 +1,5 @@
+Host vmware
+HostName 172.16.76.129
+StrictHostKeyChecking no
+User vmware
+

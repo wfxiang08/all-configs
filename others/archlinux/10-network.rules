@@ -1,0 +1,4 @@
+# /etc/udev/rules.d/10-network.rules
+
+SUBSYSTEM=="net", ATTR{address}=="8c:89:a5:c5:7c:4f", NAME="eth0"
+
