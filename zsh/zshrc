@@ -253,6 +253,7 @@ case $HOST_OS in
     Linux)
         # alias open='dolphin'
         # alias open='gnome-open'
+        alias open='xdg-open'
     ;;
 esac
 
