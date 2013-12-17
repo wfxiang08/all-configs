@@ -4,6 +4,8 @@ if $TERM == "xterm" || $TERM == "xterm-color"
     set t_Co=256
 endif
 
+set runtimepath+=/usr/share/go/misc/vim
+
 runtime modules/pathogen/autoload/pathogen.vim
 call pathogen#infect('modules/{}')
 
@@ -139,7 +141,7 @@ set laststatus=2
 set statusline=%F%m%r%h%w\ %{&ff}\ %y\ [A=\%03.3b,\ H=\%02.2B]%=%-14.(%l,%c%V%)[%p%%]
 
 " restore last position when opening a file
-au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
+" au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 
 set list
 set listchars=tab:▸\ ,eol:¬
@@ -292,8 +294,8 @@ nmap <silent> N :NERDTreeToggle<cr>
 nmap <silent> F :BufExplorer<CR>
 
 " bprev bnext
-nmap <C-n> :bn<CR>
-nmap <C-p> :bp<CR>
+nmap <C-S-left> :bn<CR>
+nmap <C-S-right> :bp<CR>
 
 " cscope bindings 
 if has("cscope") 
