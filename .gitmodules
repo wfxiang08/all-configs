@@ -28,3 +28,6 @@
 [submodule "vim/vim/modules/unimpaired"]
 	path = vim/vim/modules/unimpaired
 	url = git://github.com/tpope/vim-unimpaired.git
+[submodule "vim/vim/modules/__gocode"]
+	path = vim/vim/modules/__gocode
+	url = https://github.com/nsf/gocode.git
