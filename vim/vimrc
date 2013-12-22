@@ -256,12 +256,8 @@ autocmd Filetype cpp set omnifunc=cppcomplete#Complete
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 let g:tex_flavor='latex'
 autocmd FileType latex setlocal iskeyword+=:
-autocmd BufRead,BufNewFile *.vcl setlocal ft=varnish
-autocmd BufNewFile *.py TSkeletonSetup general.py
-autocmd BufNewFile *.sh TSkeletonSetup general.sh
 " always set cursor at the beginning of GIT COMMIT file
 autocmd FileType gitcommit call setpos('.', [0, 1, 1, 0])
-autocmd BufNewFile,BufRead *.as setlocal ft=actionscript
 autocmd FileType html setlocal ts=8 sts=2 sw=2 expandtab
 """""""""" key mapping stuffs """""""""" 
 
@@ -294,8 +290,8 @@ nmap <silent> N :NERDTreeToggle<cr>
 nmap <silent> F :BufExplorer<CR>
 
 " bprev bnext
-nmap <C-S-left> :bn<CR>
-nmap <C-S-right> :bp<CR>
+nmap <C-S-n> :bn<CR>
+nmap <C-S-p> :bp<CR>
 
 " cscope bindings 
 if has("cscope") 
