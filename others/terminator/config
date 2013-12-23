@@ -13,7 +13,7 @@
 [profiles]
   [[default]]
     use_system_font = False
-    font = WenQuanYi Micro Hei Mono 12
+    font = WenQuanYi Micro Hei Mono 15
     scrollback_lines = 65536
     background_image = None
     foreground_color = "#dfdfdb"
