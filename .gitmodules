@@ -31,3 +31,6 @@
 [submodule "vim/vim/modules/__gocode"]
 	path = vim/vim/modules/__gocode
 	url = https://github.com/nsf/gocode.git
+[submodule "vim/vim/modules/minibufexpl"]
+	path = vim/vim/modules/minibufexpl
+	url = https://github.com/fholgado/minibufexpl.vim.git
