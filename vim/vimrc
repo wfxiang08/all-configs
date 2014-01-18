@@ -160,52 +160,6 @@ set completeopt+=longest
 """""""""" plugin settings """"""""""
 let s:PlugWinSize = 30
 
-" Tagbar
-" http://www.vim.org/scripts/script.php?script_id=3465
-" https://github.com/majutsushi/tagbar
-if IsPluginEnabled("tagbar")
-    let g:tagbar_width = 30
-
-    " vimwiki
-    let g:tagbar_type_vimwiki = {
-                \ 'ctagstype' : 'vimwiki',
-                \ 'kinds'     : [
-                \ 'h:header',
-                \ ],
-                \ 'sort'    : 0
-                \ }
-    " golang
-    " require gotags: https://github.com/jstemmer/gotags
-    " quick install: go get -u github.com/jstemmer/gotags
-    let g:tagbar_type_go = {
-        \ 'ctagstype' : 'go',
-        \ 'kinds'     : [
-            \ 'p:package',
-            \ 'i:imports:1',
-            \ 'c:constants',
-            \ 'v:variables',
-            \ 't:types',
-            \ 'n:interfaces',
-            \ 'w:fields',
-            \ 'e:embedded',
-            \ 'm:methods',
-            \ 'r:constructor',
-            \ 'f:functions'
-        \ ],
-        \ 'sro' : '.',
-        \ 'kind2scope' : {
-            \ 't' : 'ctype',
-            \ 'n' : 'ntype'
-        \ },
-        \ 'scope2kind' : {
-            \ 'ctype' : 't',
-            \ 'ntype' : 'n'
-        \ },
-        \ 'ctagsbin'  : 'gotags',
-        \ 'ctagsargs' : '-sort -silent'
-    \ }
-endif
-
 " NERD Tree
 " http://www.vim.org/scripts/script.php?script_id=1658
 " https://github.com/scrooloose/nerdtree
@@ -285,8 +239,7 @@ vnoremap <silent> * :call VisualSearch('f')<CR>
 vnoremap <silent> # :call VisualSearch('b')<CR>
 
 " plugins
-nmap <silent> T :TagbarToggle<cr>
-nmap <silent> N :NERDTreeToggle<cr>
+nmap <silent> T :NERDTreeToggle<cr>
 nmap <silent> F :BufExplorer<CR>
 
 " bprev bnext
