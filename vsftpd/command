@@ -1,0 +1,10 @@
+sudo groupadd ftpusers
+sudo useradd -d /home/ftp -s /sbin/nologin ftpuser -g ftpusers -r
+# add password for ftpuser
+sudo usermod -a -G ftpusers spinlock
+sudo chown ftpuser:ftpusers /home/ftp
+sudo chmod 775 /home/ftp
+
+sudo systemctl enable vsftpd.service
+sudo systemctl start vsftpd.service
+
