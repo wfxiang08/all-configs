@@ -21,8 +21,8 @@ path=${path#$home}
 cd ~
 for file in $list; do
     ln_src="$path$file"; ln_dst=".$file"
-
-    rm -f $ln_dst; ln -s $ln_src $ln_dst
+    
+    rm -rf $ln_dst; ln -s $ln_src $ln_dst
 
     if [ $? -eq 0 ]; then
         e="*"
