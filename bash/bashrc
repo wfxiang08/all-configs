@@ -83,7 +83,7 @@ case $HOST_OS in
         ;;
     Linux)
         # export PATH=$PATH
-        export PATH=/usr/local/sbin:/usr/local/bin:/usr/local/texlive/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+        export PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/local/texlive/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
         ;;
 esac
 
