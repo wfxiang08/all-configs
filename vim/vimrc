@@ -208,6 +208,7 @@ endif
 autocmd Filetype c set omnifunc=ccomplete#Complete
 autocmd Filetype cpp set omnifunc=cppcomplete#Complete
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType go setlocal omnifunc=gocomplete#Complete ts=4 listchars=tab:\ \ ,eol:¬
 let g:tex_flavor='latex'
 autocmd FileType latex setlocal iskeyword+=:
 " always set cursor at the beginning of GIT COMMIT file
