@@ -16,11 +16,13 @@ fi
 
 color_prompt=yes
 
-#case "$TERM" in
-#       xterm*)
-#               color_prompt=yes
-#       ;;
-#esac
+case "$TERM" in
+       xterm*|rxvt*)
+                color_prompt=yes
+                PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
+       ;;
+esac
+
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
