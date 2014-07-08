@@ -88,8 +88,8 @@ case $HOST_OS in
         export LD_LIBRARY_PATH=".:${LD_LIBRARY_PATH}"
         ;;
     Linux)
-        # export PATH=$PATH
-        export PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/local/texlive/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+        export PATH=$PATH
+        # export PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/local/texlive/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
         ;;
 esac
 
