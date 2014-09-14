@@ -8,6 +8,19 @@ shopt -s checkwinsize
 export HISTFILESIZE=1000000
 export HISTSIZE=100000
 
+#JAVA ENV
+if [ -e /usr/share/java ]; then
+    export JAVA_HOME=/usr/share/java
+    export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+    export PATH=$PATH:$JAVA_HOME/bin
+fi
+
+#GO ENV
+if [ -e /usr/share/go ]; then
+    export GOROOT=/usr/share/go 
+    export PATH=$PATH:$GOROOT/bin
+fi
+
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
@@ -91,8 +104,8 @@ case $HOST_OS in
         export LD_LIBRARY_PATH=".:${LD_LIBRARY_PATH}"
         ;;
     Linux)
-        export PATH=$PATH
-        # export PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/local/texlive/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+        #export PATH=$PATH
+        export PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/local/texlive/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
         ;;
 esac
 

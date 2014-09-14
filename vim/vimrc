@@ -4,7 +4,7 @@ if $TERM == "xterm" || $TERM == "xterm-color"
     set t_Co=256
 endif
 
-set runtimepath+=/usr/share/go/misc/vim
+set runtimepath+=$GOROOT/misc/vim
 
 runtime modules/pathogen/autoload/pathogen.vim
 call pathogen#infect('modules/{}')
@@ -200,11 +200,11 @@ endif
 " https://github.com/sjl/gundo.vim/
 
 """""""""" FileType settings """""""""" 
-"autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-"autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-"autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-"autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 autocmd Filetype c set omnifunc=ccomplete#Complete
 autocmd Filetype cpp set omnifunc=cppcomplete#Complete
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
