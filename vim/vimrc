@@ -46,6 +46,7 @@ set background=dark
 set noshowmode
 set cinwords+=struct,class,def,elif,except,finally,try,catch
 
+
 "set nowrap
 "set wrap
 
@@ -171,6 +172,7 @@ if IsPluginEnabled("nerdtree")
     if IsPluginEnabled("netrw")
         let NERDTreeHijackNetrw = 0
     endif
+    
 endif
 
 " Buffers Explorer
@@ -199,7 +201,6 @@ if IsPluginEnabled("taglist")
     let Tlist_Exit_OnlyWindow=1
     let Tlist_Use_Right_Window=1
     let Tlist_GainFocus_On_ToggleOpen=1
-    nnoremap <leader>tl : Tlist<CR>
 endif
 
 " grep.vim 
@@ -225,8 +226,8 @@ autocmd FileType latex setlocal iskeyword+=:
 autocmd FileType gitcommit call setpos('.', [0, 1, 1, 0])
 autocmd FileType html setlocal ts=8 sts=2 sw=2 expandtab
 """""""""" key mapping stuffs """""""""" 
+let mapleader = ","
 
-let mapleader = ";"
 nmap <space> :
 vmap <space> :
 
@@ -252,6 +253,7 @@ vnoremap <silent> # :call VisualSearch('b')<CR>
 " plugins
 nmap <silent> T :NERDTreeToggle<cr>
 nmap <silent> F :BufExplorer<CR>
+nmap <silent> L :Tlist<CR>
 
 " bprev bnext
 nmap <C-S-n> :bn<CR>
