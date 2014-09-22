@@ -24,4 +24,5 @@ for dir in `ls`; do
     fi
 done
 
+git submodule init
 git submodule update

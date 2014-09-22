@@ -22,4 +22,4 @@
 [branch]
     autosetupmerge = true
 [push]
-	default = simple
+	default = current
