@@ -192,6 +192,16 @@ if IsPluginEnabled("python")
     let python_highlight_all = 1
 endif
 
+" taglist
+" http://www.vim.org/scripts/script.php?script_id=273
+if IsPluginEnabled("taglist")
+    let Tlist_Show_One_File=1
+    let Tlist_Exit_OnlyWindow=1
+    let Tlist_Use_Right_Window=1
+    let Tlist_GainFocus_On_ToggleOpen=1
+    nnoremap <leader>tl : Tlist<CR>
+endif
+
 " grep.vim 
 " http://www.vim.org/scripts/script.php?script_id=311
 
