@@ -18,7 +18,8 @@ fi
 #GO ENV
 if [ -e /usr/share/go ]; then
     export GOROOT=/usr/share/go 
-    export PATH=$PATH:$GOROOT/bin
+    export GOPATH=$HOME/code/golang
+    export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 fi
 
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
