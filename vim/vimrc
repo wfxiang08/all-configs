@@ -125,7 +125,7 @@ inoremap <buffer> <silent> <Up> <C-o>gk
 noremap  <buffer> <silent> <Down> gj
 inoremap <buffer> <silent> <Down> <C-o>gj
 
-set history=65536  " vim default save 20 histories
+" set history=65536  " vim default save 20 histories
 set mouse=
 
 " encoding stuffs

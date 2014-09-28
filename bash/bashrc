@@ -1,13 +1,4 @@
-[ -z "$PS1" ] && return
-
-export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
-export HISTCONTROL=ignoreboth
-
-shopt -s histappend
-shopt -s checkwinsize
-export HISTFILESIZE=1000000
-export HISTSIZE=100000
-
+[ -z "$PS1" ] && return export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups export HISTCONTROL=ignoreboth shopt -s histappend shopt -s checkwinsize export HISTFILESIZE=1000000 export HISTSIZE=100000 
 #JAVA ENV
 if [ -e /usr/share/java ]; then
     export JAVA_HOME=/usr/share/java
@@ -79,8 +70,14 @@ if [ -f /usr/bin/vim ]; then
     export SVN_EDITOR=vim
 fi
 
-alias ls='ls --color=auto --group-directories-first'
-#alias ls='ls -G'
+case $HOST_OS in
+    Darwin)
+        alias ls='ls -G'
+        ;;
+    Linux)
+        alias ls='ls --color=auto --group-directories-first'
+        ;;
+esac
 alias lsnc='ls --color=never'
 alias ll='ls -l'
 alias la='ls -a'
@@ -100,6 +97,7 @@ case $HOST_OS in
         export PATH=/opt/local/libexec/gnubin:$PATH
         export PATH=/opt/local/bin:/opt/local/sbin:$PATH
         export PATH=/usr/local/bin:$PATH
+        export PATH=/usr/local/mysql-5.6.21-osx10.8-x86_64/bin:$PATH
         export MANPATH=/opt/local/libexec/gnubin/man:$MANPATH
         export MANPATH=/opt/local/share/man:$MANPATH
         export LD_LIBRARY_PATH=".:${LD_LIBRARY_PATH}"
