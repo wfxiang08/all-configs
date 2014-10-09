@@ -1,0 +1,3 @@
+Host *
+    ControlMaster auto
+    ControlPath ~/.ssh/persist/master-%r@%h:%p
