@@ -34,3 +34,6 @@
 [submodule "vim/vim/modules/autocomlpop"]
 	path = vim/vim/modules/autocomlpop
 	url = git@github.com:vim-scripts/AutoComplPop.git
+[submodule "vim/vim/modules/tagbar"]
+	path = vim/vim/modules/tagbar
+	url = https://github.com/majutsushi/tagbar.git
