@@ -31,9 +31,6 @@
 [submodule "vim/vim/modules/minibufexpl"]
 	path = vim/vim/modules/minibufexpl
 	url = https://github.com/fholgado/minibufexpl.vim.git
-[submodule "vim/vim/modules/taglist"]
-	path = vim/vim/modules/taglist
-	url = git://github.com/vim-scripts/taglist.vim.git
 [submodule "vim/vim/modules/autocomlpop"]
 	path = vim/vim/modules/autocomlpop
 	url = git@github.com:vim-scripts/AutoComplPop.git
