@@ -4,3 +4,4 @@
 vim/vim/.netrwhist
 ssh/ssh/persist/*
 ssh/ssh/known_hosts
+ssh/ssh/authorized_keys
