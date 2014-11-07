@@ -1,4 +1,12 @@
-[ -z "$PS1" ] && return export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups export HISTCONTROL=ignoreboth shopt -s histappend shopt -s checkwinsize export HISTFILESIZE=1000000 export HISTSIZE=100000 
+if [ -z "$PS1" ]; then 
+    export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups 
+    export HISTCONTROL=ignoreboth 
+    shopt -s histappend 
+    shopt -s checkwinsize 
+    export HISTFILESIZE=1000000 
+    export HISTSIZE=100000
+fi
+
 #JAVA ENV
 if [ -e /usr/share/java/bin/java ]; then
     export JAVA_HOME=/usr/share/java
@@ -90,6 +98,7 @@ alias tree='tree -NC'
 alias grep='grep --color=auto'
 alias grepnc='grep --color=never'
 alias ctags='ctags -R --c-kinds=+px --c++-kinds=+px --fields=+ialS --extra=+q'
+alias mysql='mysql --auto-rehash'
 
 case $HOST_OS in
     Darwin)
