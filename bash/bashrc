@@ -1,6 +1,6 @@
 [ -z "$PS1" ] && return export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups export HISTCONTROL=ignoreboth shopt -s histappend shopt -s checkwinsize export HISTFILESIZE=1000000 export HISTSIZE=100000 
 #JAVA ENV
-if [ -e /usr/share/java ]; then
+if [ -e /usr/share/java/bin/java ]; then
     export JAVA_HOME=/usr/share/java
     export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
     export PATH=$PATH:$JAVA_HOME/bin
@@ -94,11 +94,8 @@ alias ctags='ctags -R --c-kinds=+px --c++-kinds=+px --fields=+ialS --extra=+q'
 case $HOST_OS in
     Darwin)
         export PATH=/usr/texbin:$PATH
-        export PATH=/opt/local/libexec/gnubin:$PATH
         export PATH=/opt/local/bin:/opt/local/sbin:$PATH
         export PATH=/usr/local/bin:$PATH
-        export PATH=/usr/local/mysql-5.6.21-osx10.8-x86_64/bin:$PATH
-        export MANPATH=/opt/local/libexec/gnubin/man:$MANPATH
         export MANPATH=/opt/local/share/man:$MANPATH
         export LD_LIBRARY_PATH=".:${LD_LIBRARY_PATH}"
         ;;

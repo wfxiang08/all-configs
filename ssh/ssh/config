@@ -1,3 +1,6 @@
 Host *
+    User vinsia
+    ServerAliveInterval 30
     ControlMaster auto
     ControlPath ~/.ssh/persist/master-%r@%h:%p
+    ControlPersist yes
